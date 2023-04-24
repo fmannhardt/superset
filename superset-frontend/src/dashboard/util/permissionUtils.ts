@@ -52,6 +52,12 @@ export const canUserEditDashboard = (
   (isUserAdmin(user) || isUserDashboardOwner(dashboard, user)) &&
   findPermission('can_write', 'Dashboard', user.roles);
 
+export const canUserEditCharts = (
+    user?: UserWithPermissionsAndRoles | UndefinedUser | null,
+  ) =>
+    isUserWithPermissionsAndRoles(user) &&
+    findPermission('can_write', 'Chart', user.roles);  
+
 export function canUserAccessSqlLab(
   user?: UserWithPermissionsAndRoles | UndefinedUser,
 ) {

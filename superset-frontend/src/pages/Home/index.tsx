@@ -50,7 +50,7 @@ import { AntdSwitch } from 'src/components';
 import getBootstrapData from 'src/utils/getBootstrapData';
 import { TableTab } from 'src/views/CRUD/types';
 import SubMenu, { SubMenuProps } from 'src/features/home/SubMenu';
-import { canUserAccessSqlLab } from 'src/dashboard/util/permissionUtils';
+import { canUserEditCharts,canUserAccessSqlLab } from 'src/dashboard/util/permissionUtils';
 import { WelcomePageLastTab } from 'src/features/home/types';
 import ActivityTable from 'src/features/home/ActivityTable';
 import ChartTable from 'src/features/home/ChartTable';
@@ -156,6 +156,7 @@ export const LoadingCards = ({ cover }: LoadingProps) => (
 );
 
 function Welcome({ user, addDangerToast }: WelcomeProps) {
+  const canEditCharts = canUserEditCharts(user);
   const canAccessSqlLab = canUserAccessSqlLab(user);
   const userid = user.userId;
   const id = userid!.toString(); // confident that user is not a guest user
@@ -396,6 +397,7 @@ function Welcome({ user, addDangerToast }: WelcomeProps) {
                   />
                 )}
               </Collapse.Panel>
+              {canEditCharts && (
               <Collapse.Panel header={t('Charts')} key="3">
                 {!chartData || isRecentActivityLoading ? (
                   <LoadingCards cover={checked} />
@@ -408,8 +410,9 @@ function Welcome({ user, addDangerToast }: WelcomeProps) {
                     otherTabFilters={otherTabFilters}
                     otherTabTitle={otherTabTitle}
                   />
-                )}
+                )}                
               </Collapse.Panel>
+              )}
               {canAccessSqlLab && (
                 <Collapse.Panel header={t('Saved queries')} key="4">
                   {!queryData ? (
