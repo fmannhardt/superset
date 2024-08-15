@@ -17,6 +17,10 @@
  * under the License.
  */
 import { isFeatureEnabled, FeatureFlag, Preset } from '@superset-ui/core';
+import { SupersetPluginGanttChart } from '@superset-ui/plugin-gantt-chart';
+import { SupersetPluginTreeMap } from '@superset-ui/plugin-tree-map';
+import { SupersetPluginAntGraphChart } from '@superset-ui/plugin-ant-graph-chart';
+import { PluginGanttChart } from '@superset-ui/plugin-gantt-chart-react';
 import CalendarChartPlugin from '@superset-ui/legacy-plugin-chart-calendar';
 import ChordChartPlugin from '@superset-ui/legacy-plugin-chart-chord';
 import CountryMapChartPlugin from '@superset-ui/legacy-plugin-chart-country-map';
@@ -177,6 +181,18 @@ export default class MainPreset extends Preset {
         new EchartsSunburstChartPlugin().configure({ key: 'sunburst_v2' }),
         new HandlebarsChartPlugin().configure({ key: 'handlebars' }),
         new EchartsBubbleChartPlugin().configure({ key: 'bubble_v2' }),
+        new SupersetPluginGanttChart().configure({
+          key: 'superset-plugin-gantt-chart',
+        }),
+        new SupersetPluginTreeMap().configure({
+          key: 'superset-plugin-tree-map',
+        }),
+        new SupersetPluginAntGraphChart().configure({
+          key: 'superset-plugin-ant-graph-chart',
+        }),
+        new PluginGanttChart().configure({
+          key: 'superset-plugin-gantt-chart-react',
+        }),
         ...experimentalPlugins,
       ],
     });

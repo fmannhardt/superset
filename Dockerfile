@@ -41,8 +41,11 @@ RUN --mount=type=bind,target=/frontend-mem-nag.sh,src=./docker/frontend-mem-nag.
     /frontend-mem-nag.sh
 
 WORKDIR /app/superset-frontend
+
+# KAR-FM We need to authenticate to our registry
 RUN --mount=type=bind,target=./package.json,src=./superset-frontend/package.json \
     --mount=type=bind,target=./package-lock.json,src=./superset-frontend/package-lock.json \
+    --mount=type=bind,target=./.npmrc,src=./superset-frontend/.npmrc \
     npm ci
 
 # Runs the webpack build process
