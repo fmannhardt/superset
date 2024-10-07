@@ -104,8 +104,9 @@ class ImportModelsCommand(BaseCommand):
         self._prevent_overwrite_existing_model(exceptions)
 
         if exceptions:
+            exception_details = ', '.join(str(e.normalized_messages()) for e in exceptions)
             raise CommandInvalidError(
-                f"Error importing {self.model_name}",
+                f"Error importing {self.model_name}: {exception_details}",
                 exceptions,
             )
 
